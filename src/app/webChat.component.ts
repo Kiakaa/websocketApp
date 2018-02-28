@@ -24,14 +24,14 @@ export class WebChatComponent implements OnInit {
 
     constructor(private toastr: ToastrService) {
 
-        this.nickName = "Kiaka";
+        this.nickName = "";
         console.log(this.nickName);
 
         this.isNotOnline = true;
         this.nickNames = [];
 
         this.rooms = [
-            { "url": "ws://172.20.113.42:4141/chat", "name": "聊天室1" }
+            { "url": "ws://120.79.9.246:4141/chat", "name": "聊天室1" }
         ];
         this.selectedValue =this.rooms[0].url;
     }
@@ -61,20 +61,13 @@ export class WebChatComponent implements OnInit {
                 var data = JSON.parse(event.data);
                 //Type=1:登录与退出
                 if (data.Type === 1) {
-                    //登录与退出 失败(昵称冲突..)
-                    if (data.State == false) {
-                        this.toastr.error(data.Message);
-                        console.log(data.Message);
-                        return;
-                    }
                     //在线列表                    
                     let temp: string = data.Message;
                     //登录
                     if (data.Action == 1) {
-                        //登录失败
-                        if(!data.State)
-                        {
-                            this.toastr.error("登录失败，请刷新再试！");
+                        //登录(昵称冲突..)或其他错误
+                        if (!data.State) {
+                            this.toastr.error(data.Message);
                             return;
                         }
                         temp.split(",").forEach(
@@ -108,13 +101,19 @@ export class WebChatComponent implements OnInit {
                     console.log("temp:" + temp);
                 }
                 else{//消息
+                    //登录、消息失败
+                    if(!data.State)
+                    {
+                        this.toastr.error("登录失败，请刷新再试！");
+                        return;
+                    }
                     this.chatMSGs.push(data);
                 }
                 this.currentCounts=this.nickNames.length;
+                this.isNotOnline = false;
             }
             this.ws.onclose = this.onClose;
             this.ws.onerror = this.onError;
-            this.isNotOnline = false;
         }
         else
         {

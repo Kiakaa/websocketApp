@@ -15,8 +15,7 @@
                             <div class="input-group-prepend">
                                 <div class="input-group-text">昵称:</div>
                             </div>
-                            <input type="text" class="form-control" id="inputNickName" [(ngModel)]="nickName" name="NickName" [readonly]="!isNotOnline"
-                                placeholder="NickName">
+                            <input type="text" class="form-control" id="inputNickName" [(ngModel)]="nickName" name="NickName" [readonly]="!isNotOnline" placeholder="...">
                         </div>
                         <select class="form-control" [(ngModel)]="selectedValue" (change)="roomSelected()" name="room">
                             <option *ngFor="let room of rooms" value="{{room.url}}">{{room.name}}</option>
@@ -25,8 +24,8 @@
                     </div>
                 </form>
             </div>
-            <div class="card">
-                <div class="card-body messageContainer messageListScroll">
+            <div class="card ">
+                <div class="card-body messageListScroll" #scrollMe [scrollTop]="scrollMe.scrollHeight" > 
                     <small class="text-muted">
                         <ul>
                             <li *ngFor="let message of chatMSGs">
