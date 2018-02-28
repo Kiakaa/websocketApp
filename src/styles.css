@@ -1,0 +1,15 @@
+/* You can add global styles to this file, and also import other style files */
+.messageContainer {
+  height:600px;
+}
+.messageListScroll {
+    height:250px;
+    overflow-y: scroll;
+  }
+.sendMessageScroll{
+    height:50px;
+    overflow-y: scroll;
+  }
+.mwlResizable {
+    box-sizing: border-box;
+  }

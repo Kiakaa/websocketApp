@@ -1,0 +1,49 @@
+<div class="container" style="height:80%">
+    <div class="row">
+        <div class="col-md-4 col-sm-4 border">
+            <ul class="list-unstyled">
+                <li *ngIf="!isNotOnline">当前在线人数：{{currentCounts}}</li>
+                <li *ngFor="let nickNm of nickNames">{{nickNm}}</li>
+            </ul>
+        </div>
+        <div class="col-md-8 col-sm-8 border">
+            <div>
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label class="sr-only" for="inputNickName">NickName</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">昵称:</div>
+                            </div>
+                            <input type="text" class="form-control" id="inputNickName" [(ngModel)]="nickName" name="NickName" [readonly]="!isNotOnline"
+                                placeholder="NickName">
+                        </div>
+                        <select class="form-control" [(ngModel)]="selectedValue" (change)="roomSelected()" name="room">
+                            <option *ngFor="let room of rooms" value="{{room.url}}">{{room.name}}</option>
+                        </select>
+                        <button type="button" class="btn btn-primary form-control" (click)="login()">{{isNotOnline?"进入":"退出"}}</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card">
+                <div class="card-body messageContainer messageListScroll">
+                    <small class="text-muted">
+                        <ul>
+                            <li *ngFor="let message of chatMSGs">
+                                {{message.SendTime}}
+                                <br> {{message.Auth}}:{{message.Message}}
+                            </li>
+                        </ul>
+                    </small>
+                </div>
+                <div class="input-group" *ngIf="!isNotOnline">
+                    <textarea type="text" class="form-control flex-wrap." placeholder="...Ctrl+Enter发送消息" [(ngModel)]="msg" (keydown)="onKeydown($event)"></textarea>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" (click)="sendMessage()">Send</button>
+                        <button class="btn btn-outline-secondary" type="button" (click)="exit()">Exit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
