@@ -149,5 +149,9 @@ export class WebChatComponent implements OnInit {
         if (event.key === "Enter"&& event.ctrlKey) {
           this.sendMessage();
         }
+        if(event.keyCode===27)
+        {
+            this.exit();
+        }
       }
 }

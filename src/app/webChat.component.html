@@ -36,10 +36,9 @@
                     </small>
                 </div>
                 <div class="input-group" *ngIf="!isNotOnline">
-                    <textarea type="text" class="form-control flex-wrap." placeholder="...Ctrl+Enter发送消息" [(ngModel)]="msg" (keydown)="onKeydown($event)"></textarea>
+                    <textarea type="text" class="form-control flex-wrap." placeholder="...Ctrl+Enter发送消息,ESC退出" [(ngModel)]="msg" (keydown)="onKeydown($event)"></textarea>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" (click)="sendMessage()">Send</button>
-                        <button class="btn btn-outline-secondary" type="button" (click)="exit()">Exit</button>
+                        <button class="btn btn-outline-secondary" type="button" (click)="sendMessage()">发送</button>
                     </div>
                 </div>
             </div>
